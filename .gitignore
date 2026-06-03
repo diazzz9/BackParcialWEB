@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+echo ".DS_Store" >> .gitignore
+echo "**/.DS_Store" >> .gitignore
+git rm -r --cached .DS_Store src/.DS_Store src/main/.DS_Store src/main/java/.DS_Store src/main/java/com/.DS_Store src/main/java/com/parcial/.DS_Store
+git add .gitignore
+git commit -m "Remove DS_Store files"

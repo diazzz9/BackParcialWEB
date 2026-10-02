@@ -1,0 +1,11 @@
+target/
+data/
+evidencias/
+docs/
+.git/
+.github/
+.mvn/
+mvnw
+mvnw.cmd
+*.md
+.DS_Store

@@ -1,5 +1,7 @@
 # University Catalog API — Spring Boot
 
+[![CI](https://github.com/diazzz9/BackParcialWEB/actions/workflows/ci.yml/badge.svg)](https://github.com/diazzz9/BackParcialWEB/actions/workflows/ci.yml)
+
 REST API to manage a university's **faculties** and **academic programs**. Built with Spring Boot 3, Spring Data JPA and an H2 database, following a clean `controller → service → repository` layered architecture.
 
 > Frontend: [FrontParcialWEB](https://github.com/diazzz9/FrontParcialWEB) (Angular 21)
@@ -12,6 +14,7 @@ REST API to manage a university's **faculties** and **academic programs**. Built
 | Framework | Spring Boot 3.2 (Web, Data JPA, DevTools) |
 | Persistence | Hibernate / JPA · H2 (in-memory, seeded with `data.sql`) |
 | Utilities | Lombok · Maven Wrapper |
+| DevOps | Docker (multi-stage build) · GitHub Actions |
 
 ## Architecture
 
@@ -47,8 +50,17 @@ curl -X POST http://localhost:8080/api/facultades \
 
 ## Run locally
 
+**With Maven:**
+
 ```bash
 ./mvnw spring-boot:run
+```
+
+**With Docker** (no Java or Maven needed):
+
+```bash
+docker build -t university-catalog-api .
+docker run -p 8080:8080 university-catalog-api
 ```
 
 - API → `http://localhost:8080/api/facultades`
@@ -56,6 +68,16 @@ curl -X POST http://localhost:8080/api/facultades \
 
 The database is seeded on startup with three sample faculties (`src/main/resources/data.sql`).
 
-## Evidence
+## Screenshots
 
-Screenshots of the running API are in [`evidencias/`](evidencias).
+**Angular frontend consuming the API** — listing seeded faculties and creating a new one:
+
+<img src="docs/angular-ui.png" width="100%" alt="Angular UI listing and creating faculties">
+
+**H2 console** — JPA-generated schema for `FACULTAD` and `PROGRAMA_ACADEMICO`:
+
+<img src="docs/h2-console.png" width="100%" alt="H2 console showing the generated schema">
+
+## CI/CD
+
+Every push and pull request to `main` runs a [GitHub Actions workflow](.github/workflows/ci.yml) that builds the project with JDK 21, runs the test suite and builds the Docker image.
